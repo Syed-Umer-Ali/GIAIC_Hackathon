@@ -1,13 +1,12 @@
-import type {Config} from '@docusaurus/types';
+import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
-  title: 'Minimal Docusaurus Site',
-  tagline: 'Hello World',
-  url: 'https://your-docusaurus-site.example.com',
+  title: 'Physical AI & Humanoid Robotics',
+  tagline: 'Bridging the Gap Between Digital Intelligence and Physical Reality',
+  url: 'https://physical-ai-book.panaversity.org',
   baseUrl: '/',
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
 
   presets: [
@@ -28,24 +27,66 @@ const config: Config = {
   ],
 
   themeConfig: {
+    colorMode: {
+      defaultMode: 'dark',
+      disableSwitch: false,
+      respectPrefersColorScheme: true,
+    },
     navbar: {
-      title: 'Minimal Docusaurus Site',
+      title: 'Physical AI',
       logo: {
-        alt: 'My Site Logo',
+        alt: 'Physical AI Logo',
         src: 'img/logo.svg',
       },
       items: [
         {
           to: '/docs/intro',
-          label: 'Docs',
+          label: 'Textbook',
           position: 'left',
         },
-        {to: '/blog', label: 'Blog', position: 'left'},
+        {
+          href: 'https://github.com/panaversity/physical-ai-book',
+          label: 'GitHub',
+          position: 'right',
+        },
       ],
     },
     footer: {
       style: 'dark',
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc.`,
+      links: [
+        {
+          title: 'Course',
+          items: [
+            {
+              label: 'Curriculum',
+              to: '/docs/intro',
+            },
+          ],
+        },
+        {
+          title: 'Community',
+          items: [
+            {
+              label: 'Discord',
+              href: 'https://discordapp.com/invite/docusaurus',
+            },
+            {
+              label: 'Twitter',
+              href: 'https://twitter.com/docusaurus',
+            },
+          ],
+        },
+        {
+          title: 'More',
+          items: [
+            {
+              label: 'GitHub',
+              href: 'https://github.com/facebook/docusaurus',
+            },
+          ],
+        },
+      ],
+      copyright: `Copyright © ${new Date().getFullYear()} Panaversity. Built with Docusaurus.`,
     },
   } satisfies Preset.ThemeConfig,
 };

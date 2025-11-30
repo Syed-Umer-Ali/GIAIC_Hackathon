@@ -1,55 +1,62 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report:
+- Version change: N/A (initial creation) -> 0.1.0
+- Modified principles: None (initial creation)
+- Added sections:
+  - Project Purpose
+  - Technology Stack
+  - Hackathon Requirements & Deliverables
+- Removed sections: None
+- Templates requiring updates:
+  - .specify/templates/plan-template.md: ⚠ pending
+  - .specify/templates/spec-template.md: ⚠ pending
+  - .specify/templates/tasks-template.md: ⚠ pending
+  - .specify/templates/commands/*.md: ⚠ pending
+  - README.md: ⚠ pending
+- Follow-up TODOs: None
+-->
+# Physical AI & Humanoid Robotics Textbook Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. AI/Spec-Driven Development
+Every aspect of the textbook creation, from content generation to chatbot integration, MUST leverage AI and Spec-Driven Development (SDD) methodologies.
+Rationale: To ensure high-quality, testable, and systematically developed components, utilizing tools like Spec-Kit Plus and Claude Code for efficiency and consistency.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Docusaurus-First Content Platform
+The textbook content MUST be built and maintained using Docusaurus, deployed to GitHub Pages.
+Rationale: Docusaurus provides a robust, modern, and easily deployable framework for technical documentation, ensuring accessibility and maintainability of the textbook.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. Integrated RAG Chatbot
+An Retrieval-Augmented Generation (RAG) chatbot MUST be integrated within the published book to answer user questions about its content, including text selection-based queries.
+Rationale: To provide an interactive and enhanced learning experience, enabling students to quickly find answers and deepen their understanding of the material directly within the textbook.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Content Modularity & Comprehensiveness
+The textbook content MUST be logically structured into modules, chapters, and lessons, ensuring each section provides complete and accurate information for student comprehension.
+Rationale: A well-organized, modular structure facilitates learning, makes complex topics digestible, and ensures that students acquire a thorough understanding of Physical AI and Humanoid Robotics.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. User-Centric Enhancements (Bonus)
+Provisions for user personalization (hardware/software background, content adjustment) and localization (Urdu translation) SHOULD be considered for enhanced user experience.
+Rationale: To cater to diverse learning needs and preferences, making the textbook more accessible and engaging for a broader audience, and aligning with hackathon bonus point opportunities.
 
-### [PRINCIPLE_6_NAME]
+### VI. Robust Technology Stack
+The integrated RAG chatbot MUST utilize OpenAI Agents/ChatKit SDKs, FastAPI, Neon Serverless Postgres, and Qdrant Cloud Free Tier.
+Rationale: To ensure the chatbot is built on a modern, scalable, and efficient technology stack, leveraging best-in-class tools for AI integration and data management.
 
+## Project Purpose
+The primary purpose of this project is to create a comprehensive, AI-native textbook for teaching a course in Physical AI & Humanoid Robotics. This textbook, built with Docusaurus and hosted on GitHub Pages, will be augmented by an interactive RAG chatbot to enhance the learning experience. The project also serves as a hackathon deliverable, demonstrating proficiency in AI/Spec-Driven Development and cutting-edge AI integration.
 
-[PRINCIPLE__DESCRIPTION]
-
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
-
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
-
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
-
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+## Hackathon Requirements & Deliverables
+The project MUST adhere to the core deliverables and aim for bonus points as outlined in the hackathon brief. This includes but is not limited to:
+- AI/Spec-Driven Book Creation using Docusaurus and GitHub Pages.
+- Integrated RAG Chatbot development.
+- Potential for bonus points via Claude Code Subagents, Agent Skills, Signup/Signin with personalization, and content translation.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+This Constitution outlines the foundational principles and guidelines for the "Physical AI & Humanoid Robotics Textbook" project. It is intended to guide all development, content creation, and integration efforts.
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+**Amendment Procedure:** Amendments to this Constitution require a documented rationale and approval from the core project team.
+**Versioning Policy:** Semantic versioning will be applied to Constitution updates. MAJOR for backward incompatible changes, MINOR for significant additions, PATCH for minor clarifications.
+**Compliance Review:** All major project milestones and deliverables MUST undergo a review to ensure compliance with the principles outlined herein.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 0.1.0 | **Ratified**: 2025-11-29 | **Last Amended**: 2025-11-29

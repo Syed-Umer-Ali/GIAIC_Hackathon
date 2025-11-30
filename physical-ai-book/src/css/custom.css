@@ -1,11 +1,9 @@
 /**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
+ * Digital Twin Theme - Physical AI Book
  */
 
-/* You can override the default Infima variables here. */
 :root {
+  /* Core Brand Colors - Neon Blue & Orange */
   --ifm-color-primary: #00f3ff;
   --ifm-color-primary-dark: #00dbe6;
   --ifm-color-primary-darker: #00d2d9;
@@ -13,11 +11,18 @@
   --ifm-color-primary-light: #29f5ff;
   --ifm-color-primary-lighter: #36f6ff;
   --ifm-color-primary-lightest: #63f8ff;
+
+  --color-secondary: #ff9900;
+  --color-bg-dark: #050a14;
+  --color-bg-card: rgba(255, 255, 255, 0.05);
+  --color-text-glow: rgba(0, 243, 255, 0.5);
+
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+  --ifm-font-family-base: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
   --ifm-color-primary: #00f3ff;
   --ifm-color-primary-dark: #00dbe6;
@@ -26,6 +31,183 @@
   --ifm-color-primary-light: #29f5ff;
   --ifm-color-primary-lighter: #36f6ff;
   --ifm-color-primary-lightest: #63f8ff;
+
+  --ifm-background-color: var(--color-bg-dark);
+  --ifm-navbar-background-color: rgba(5, 10, 20, 0.8);
+  --ifm-footer-background-color: #020408;
+
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
-  background-color: #0a0a0a;
+}
+
+/* Glassmorphism Utilities */
+.glass-card {
+  background: var(--color-bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+  border-color: var(--ifm-color-primary);
+}
+
+.glass-card h3 {
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+.glass-card p {
+  color: #e0e0e0;
+}
+
+/* Hero Section Styles */
+.hero-split {
+  position: relative;
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 0;
+}
+
+.hero-split__bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  z-index: 0;
+}
+
+.hero-split__left,
+.hero-split__right {
+  flex: 1;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.hero-split__left {
+  background-image: url('/img/hero-wireframe.png');
+  border-right: 2px solid var(--ifm-color-primary);
+}
+
+.hero-split__left::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 20, 40, 0.6);
+  /* Overlay for text readability */
+}
+
+.hero-split__right {
+  background-image: url('/img/hero-real.png');
+}
+
+.hero-split__right::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  /* Lighter overlay for real side */
+}
+
+.hero-split__content {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.hero-title {
+  font-size: 5rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+  background: linear-gradient(90deg, #fff, var(--ifm-color-primary));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  color: #fff;
+  margin-bottom: 2rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #000;
+  background: var(--ifm-color-primary);
+  border-radius: 50px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(0, 243, 255, 0.4);
+}
+
+.cta-button:hover {
+  background: #fff;
+  color: var(--ifm-color-primary);
+  box-shadow: 0 0 40px rgba(0, 243, 255, 0.6);
+  transform: scale(1.05);
+  text-decoration: none;
+}
+
+/* Feature Section */
+.features-section {
+  padding: 4rem 0;
+  background: var(--color-bg-dark);
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.feature-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--ifm-color-primary);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .hero-split {
+    flex-direction: column;
+  }
+
+  .hero-split__bg {
+    flex-direction: column;
+  }
+
+  .hero-title {
+    font-size: 3rem;
+  }
 }
