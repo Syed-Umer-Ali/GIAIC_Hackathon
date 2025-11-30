@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import styles from './styles.module.css';
 
 interface TextSelectionBlipProps {
@@ -9,7 +10,7 @@ interface TextSelectionBlipProps {
 export const TextSelectionBlip: React.FC<TextSelectionBlipProps> = ({ position, onClick }) => {
     if (!position) return null;
 
-    return (
+    return ReactDOM.createPortal(
         <button
             className={styles.blip}
             style={{ top: position.top, left: position.left }}
@@ -18,6 +19,7 @@ export const TextSelectionBlip: React.FC<TextSelectionBlipProps> = ({ position, 
             aria-label="Ask AI about selection"
         >
             🤖
-        </button>
+        </button>,
+        document.body
     );
 };

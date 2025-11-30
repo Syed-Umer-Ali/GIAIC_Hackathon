@@ -140,7 +140,7 @@
 
 .blip {
   position: fixed;
-  z-index: 1000;
+  z-index: 2147483647;
   width: 40px;
   height: 40px;
   border-radius: 50%;
