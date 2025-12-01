@@ -37,7 +37,7 @@ async def get_summary(slug: str):
         # cached = db_session.query(LessonCache).filter(...).first()
         
         # 1. Read content
-        text = content.get_markdown_content(slug)
+        text = await content.get_markdown_content(slug)
         
         # 2. Generate summary
         result = await openai.generate_summary(text)
@@ -55,7 +55,7 @@ async def get_translation(slug: str, target_language: str):
         # if cached := check_cache(slug, "translation", {"language": target_language}):
         #     return cached
         
-        text = content.get_markdown_content(slug)
+        text = await content.get_markdown_content(slug)
         translated_text = await openai.translate_content(text, target_language)
         
         return {"translated_markdown": translated_text, "language": target_language}
@@ -71,7 +71,7 @@ async def get_quiz(slug: str):
         # if cached := check_cache(slug, "quiz"):
         #     return cached
         
-        text = content.get_markdown_content(slug)
+        text = await content.get_markdown_content(slug)
         result = await openai.generate_quiz(text)
         
         return result
