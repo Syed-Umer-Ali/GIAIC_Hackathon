@@ -11,15 +11,20 @@ export const TextSelectionBlip: React.FC<TextSelectionBlipProps> = ({ position, 
     if (!position) return null;
 
     return ReactDOM.createPortal(
-        <button
-            className={styles.blip}
+        <div
+            className={styles.blipContainer}
             style={{ top: position.top, left: position.left }}
+            onMouseDown={(e) => e.preventDefault()} // Prevent losing selection
             onClick={onClick}
-            onMouseDown={(e) => e.preventDefault()}
-            aria-label="Ask AI about selection"
         >
-            🤖
-        </button>,
+            <button
+                className={styles.blip}
+                aria-label="Ask AI about selection"
+            >
+                🤖
+            </button>
+            <span className={styles.blipLabel}>Ask AI</span>
+        </div>,
         document.body
     );
 };

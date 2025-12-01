@@ -40,11 +40,15 @@ export default function Chatbot() {
       if (text && selection && selection.rangeCount > 0) {
         const range = selection.getRangeAt(0);
         const rect = range.getBoundingClientRect();
+        console.log('Selected Text:', text);
+        console.log('Selection Range:', range);
+        console.log('Bounding Rect:', rect);
         setBlipPosition({
           top: rect.top,
-          left: rect.right
+          left: rect.left + rect.width / 2 // Center the blip horizontally
         });
       } else {
+        console.log('No valid text selection or range found.');
         setBlipPosition(null);
       }
     };
