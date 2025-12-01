@@ -3,11 +3,17 @@ import { ChatWindow, Message } from './ChatWindow';
 import { TextSelectionBlip } from './TextSelectionBlip';
 import styles from './styles.module.css';
 import { useLocation } from '@docusaurus/router';
-
-const API_URL = 'https://hackathon-book-o2g6.vercel.app/chat/message';
-const HISTORY_URL = 'https://hackathon-book-o2g6.vercel.app/chat/sessions';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 export default function Chatbot() {
+  const { siteConfig } = useDocusaurusContext();
+  const baseUrl = (siteConfig.customFields?.apiUrl as string) || 'http://localhost:8000';
+  // Remove trailing slash if present
+  const cleanBaseUrl = baseUrl.replace(/\/$/, '');
+  
+  const API_URL = `${cleanBaseUrl}/chat/message`;
+  const HISTORY_URL = `${cleanBaseUrl}/chat/sessions`;
+
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');

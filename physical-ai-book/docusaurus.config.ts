@@ -9,6 +9,10 @@ const config: Config = {
   onBrokenLinks: 'throw',
   favicon: 'img/favicon.ico',
 
+  customFields: {
+    apiUrl: process.env.API_URL || 'http://localhost:8000',
+  },
+
   presets: [
     [
       'classic',
