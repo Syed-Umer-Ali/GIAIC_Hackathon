@@ -75,3 +75,85 @@ async def generate_response_stream(
     async for chunk in stream:
         if chunk.choices[0].delta.content:
             yield chunk.choices[0].delta.content
+
+async def generate_summary(text: str) -> dict:
+    """
+    Generates a summary and key takeaways for the given text.
+    """
+    system_prompt = """You are an expert educational summarizer. 
+    Analyze the provided lesson content and return a JSON object with:
+    1. 'summary': A concise paragraph summarizing the main concepts.
+    2. 'key_takeaways': A list of 3-5 key bullet points.
+    
+    Keep it strictly based on the provided text.
+    Return ONLY valid JSON.
+    """
+    
+    response = await aclient.chat.completions.create(
+        model=CHAT_MODEL,
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": f"LESSON CONTENT:\n{text}"}
+        ],
+        response_format={"type": "json_object"}
+    )
+    
+    import json
+    return json.loads(response.choices[0].message.content)
+
+async def generate_quiz(text: str) -> dict:
+    """
+    Generates a 5-question MCQ quiz for the given text.
+    """
+    system_prompt = """You are an assessment expert.
+    Create a 5-question multiple choice quiz based on the provided lesson content.
+    Return a JSON object with a 'questions' array.
+    Each question object must have:
+    - 'id': integer
+    - 'question': string
+    - 'options': array of objects {id: string, text: string}
+    - 'correct_option_id': string
+    - 'explanation': string (why the answer is correct)
+    
+    Return ONLY valid JSON.
+    """
+    
+    response = await aclient.chat.completions.create(
+        model=CHAT_MODEL,
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": f"LESSON CONTENT:\n{text}"}
+        ],
+        response_format={"type": "json_object"}
+    )
+    
+    import json
+    return json.loads(response.choices[0].message.content)
+
+async def translate_content(text: str, target_language: str) -> str:
+    """
+    Translates the markdown content to the target language, preserving code blocks and images.
+    """
+    system_prompt = f"""You are a technical translator expert in {target_language}.
+    Translate the following Markdown content to {target_language}.
+    
+    CRITICAL RULES:
+    1. DO NOT translate code blocks, variable names, file paths, or URLs.
+    2. Preserve all Markdown formatting (headers, bold, lists, links).
+    3. Preserve all image links and attributes exactly.
+    4. If the target is 'Roman Urdu', write Urdu words using English characters (e.g., 'aap kaise hain?').
+    5. Translate technical concepts clearly but keep standard terms (like 'ROS2', 'Node', 'Topic') in English/original if commonly used.
+    
+    Return ONLY the translated Markdown text.
+    """
+    
+    response = await aclient.chat.completions.create(
+        model=CHAT_MODEL,
+        messages=[
+            {"role": "system", "content": system_prompt},
+            {"role": "user", "content": text}
+        ]
+    )
+    
+    return response.choices[0].message.content
+

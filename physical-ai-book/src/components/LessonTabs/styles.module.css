@@ -1,0 +1,154 @@
+/* Container for the tabs */
+.tabsContainer {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 2.5rem;
+    padding: 16px;
+    /* Darker background container to make buttons pop */
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 24px;
+    flex-wrap: wrap;
+}
+
+[data-theme='dark'] .tabsContainer {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Individual Tab Button - Base Styles */
+.tabButton {
+    position: relative;
+    padding: 16px 32px;
+    font-size: 1.25rem;
+    font-weight: 800;
+    /* Extra bold */
+    color: white !important;
+    /* Always white text */
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    opacity: 0.85;
+    /* Slightly muted when inactive */
+    transform: scale(0.98);
+}
+
+/* Emoji Animation Wrapper */
+.emojiIcon {
+    display: inline-block;
+    font-size: 1.6rem;
+    transition: transform 0.3s ease;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* Hover Effects */
+.tabButton:hover {
+    transform: translateY(-5px) scale(1.02);
+    opacity: 1;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+}
+
+.tabButton:hover .emojiIcon {
+    animation: bounce 0.6s infinite alternate;
+}
+
+@keyframes bounce {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-6px);
+    }
+}
+
+/* --- Specific Tab Colors (FILLED) --- */
+
+/* Summary Tab - Blue Theme */
+.summaryTab {
+    background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+}
+
+.summaryTab:hover,
+.summaryTab.activeTab {
+    background: linear-gradient(135deg, #00d2ff 0%, #3a7bd5 100%);
+    box-shadow: 0 0 20px rgba(0, 198, 255, 0.6);
+}
+
+/* Language Tab - Purple/Pink Theme */
+.languageTab {
+    background: linear-gradient(135deg, #ff00cc 0%, #333399 100%);
+}
+
+.languageTab:hover,
+.languageTab.activeTab {
+    background: linear-gradient(135deg, #ff33cc 0%, #5e3399 100%);
+    box-shadow: 0 0 20px rgba(255, 0, 204, 0.6);
+}
+
+/* Assessment Tab - Orange/Red Theme */
+.assessmentTab {
+    background: linear-gradient(135deg, #ff9966 0%, #ff5e62 100%);
+}
+
+.assessmentTab:hover,
+.assessmentTab.activeTab {
+    background: linear-gradient(135deg, #ffaa77 0%, #ff4b1f 100%);
+    box-shadow: 0 0 20px rgba(255, 94, 98, 0.6);
+}
+
+/* Active State - Full Opacity & Glow */
+.activeTab {
+    opacity: 1;
+    transform: scale(1.05);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Pulsing Glow Animation for Active Tabs */
+.activeTab::after {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: -6px;
+    right: -6px;
+    bottom: -6px;
+    border-radius: 26px;
+    z-index: -1;
+    opacity: 0.5;
+    filter: blur(20px);
+    animation: pulseGlow 2s infinite;
+}
+
+.summaryTab.activeTab::after {
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+}
+
+.languageTab.activeTab::after {
+    background: linear-gradient(135deg, #ff00cc, #333399);
+}
+
+.assessmentTab.activeTab::after {
+    background: linear-gradient(135deg, #ff9966, #ff5e62);
+}
+
+@keyframes pulseGlow {
+    0% {
+        opacity: 0.4;
+        transform: scale(0.95);
+    }
+
+    50% {
+        opacity: 0.7;
+        transform: scale(1.05);
+    }
+
+    100% {
+        opacity: 0.4;
+        transform: scale(0.95);
+    }
+}

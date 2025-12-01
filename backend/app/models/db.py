@@ -28,3 +28,14 @@ class ChatMessage(Base):
     created_at = Column(DateTime, default=datetime.utcnow)
 
     session = relationship("ChatSession", back_populates="messages")
+
+class LessonCache(Base):
+    __tablename__ = "lesson_cache"
+
+    id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
+    slug = Column(String, nullable=False, index=True)
+    feature_type = Column(String, nullable=False)  # summary, translation, quiz
+    params = Column(Text, nullable=True) # JSON string for extra params like language
+    content = Column(Text, nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    source_hash = Column(String, nullable=True)

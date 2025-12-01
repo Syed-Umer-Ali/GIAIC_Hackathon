@@ -1,16 +1,14 @@
 <!--
 Sync Impact Report:
-- Version change: 0.1.0 -> 0.2.0
+- Version change: 0.2.0 -> 0.3.0
 - Modified principles:
-  - III. Integrated RAG Chatbot -> III. Context-Aware RAG Chatbot
+  - V. User-Centric Enhancements (Bonus) -> V. Interactive & Accessible Learning
 - Added sections: None
 - Removed sections: None
 - Templates requiring updates:
-  - .specify/templates/plan-template.md: ⚠ pending
-  - .specify/templates/spec-template.md: ⚠ pending
-  - .specify/templates/tasks-template.md: ⚠ pending
-  - .specify/templates/commands/*.md: ⚠ pending
-  - README.md: ⚠ pending
+  - .specify/templates/plan-template.md: ✅ checked
+  - .specify/templates/spec-template.md: ✅ checked
+  - .specify/templates/tasks-template.md: ✅ checked
 - Follow-up TODOs: None
 -->
 # Physical AI & Humanoid Robotics Textbook Constitution
@@ -33,12 +31,12 @@ Rationale: To provide a highly interactive and personalized learning experience,
 The textbook content MUST be logically structured into modules, chapters, and lessons, ensuring each section provides complete and accurate information for student comprehension.
 Rationale: A well-organized, modular structure facilitates learning, makes complex topics digestible, and ensures that students acquire a thorough understanding of Physical AI and Humanoid Robotics.
 
-### V. User-Centric Enhancements (Bonus)
-Provisions for user personalization (hardware/software background, content adjustment) and localization (Urdu translation) SHOULD be considered for enhanced user experience.
-Rationale: To cater to diverse learning needs and preferences, making the textbook more accessible and engaging for a broader audience, and aligning with hackathon bonus point opportunities.
+### V. Interactive & Accessible Learning
+The learning experience MUST be enhanced with interactive tools including AI-generated summaries, instant assessments (quizzes), and multi-language support. Roman Urdu MUST be prioritized as the primary localization option, followed by standard Urdu and other major languages.
+Rationale: To lower language barriers and enforce active recall, ensuring the content is accessible and engaging for a diverse, global student base, particularly catering to the local context via Roman Urdu.
 
 ### VI. Robust Technology Stack
-The integrated RAG chatbot MUST utilize OpenAI Agents/ChatKit SDKs, FastAPI, Neon Serverless Postgres, and Qdrant Cloud Free Tier.
+The integrated RAG chatbot and interactive features MUST utilize OpenAI Agents/ChatKit SDKs, FastAPI, Neon Serverless Postgres, and Qdrant Cloud Free Tier.
 Rationale: To ensure the chatbot is built on a modern, scalable, and efficient technology stack, leveraging best-in-class tools for AI integration and data management.
 
 ## Project Purpose
@@ -57,4 +55,4 @@ This Constitution outlines the foundational principles and guidelines for the "P
 **Versioning Policy:** Semantic versioning will be applied to Constitution updates. MAJOR for backward incompatible changes, MINOR for significant additions, PATCH for minor clarifications.
 **Compliance Review:** All major project milestones and deliverables MUST undergo a review to ensure compliance with the principles outlined herein.
 
-**Version**: 0.2.0 | **Ratified**: 2025-11-29 | **Last Amended**: 2025-11-30
+**Version**: 0.3.0 | **Ratified**: 2025-11-29 | **Last Amended**: 2025-12-01

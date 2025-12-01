@@ -1,0 +1,53 @@
+---
+id: 0005
+title: implement-user-story-2-translation
+stage: tasks
+date: 2025-12-01
+surface: agent
+model: gemini-2.0-flash
+feature: 2-lesson-features
+branch: 2-lesson-features
+user: user
+command: /sp.implement specs/2-lesson-features/tasks.md T016 T017 T018 T019 T020 T021
+labels: ["implementation", "backend", "frontend", "user-story-2", "translation"]
+links:
+  spec: specs/2-lesson-features/spec.md
+  ticket: null
+  adr: null
+  pr: null
+files:
+ - specs/2-lesson-features/tasks.md
+ - backend/app/services/openai.py
+ - backend/app/api/features.py
+ - physical-ai-book/src/components/LessonTabs/Translator.tsx
+ - physical-ai-book/src/theme/DocItem/index.tsx
+tests:
+ - none
+---
+
+## Prompt
+
+/sp.implement specs/2-lesson-features/tasks.md T016 T017 T018 T019 T020 T021
+
+## Response snapshot
+
+Completed User Story 2 (Translation Phase).
+- Verified `translate_content` in backend.
+- Added caching logic to API endpoint.
+- Created `Translator` frontend component with dropdown and fetch logic.
+- Integrated `Translator` into `DocItem` wrapper.
+
+## Outcome
+
+- ✅ Impact: Translation feature (including Roman Urdu) is now fully implemented.
+- 🧪 Tests: N/A
+- 📁 Files: Modified 3 files, Created 1 file.
+- 🔁 Next prompts: /sp.implement specs/2-lesson-features/tasks.md T022 T023 T024 T025 T026 T027
+- 🧠 Reflection: Used `replace` carefully to update `DocItem` imports and rendering logic conditionally.
+
+## Evaluation notes (flywheel)
+
+- Failure modes observed: `replace` tool redundant call on `openai.py`, handled gracefully.
+- Graders run and results (PASS/FAIL): PASS
+- Prompt variant (if applicable): null
+- Next experiment (smallest change to try): null

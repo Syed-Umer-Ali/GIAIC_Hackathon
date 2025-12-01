@@ -1,0 +1,119 @@
+openapi: 3.0.3
+info:
+  title: Lesson Features API
+  version: 1.0.0
+  description: API for generating summaries, translations, and quizzes for textbook lessons.
+paths:
+  /api/features/summary:
+    get:
+      summary: Get Lesson Summary
+      description: Returns a cached or generated summary and key takeaways for a lesson.
+      parameters:
+        - name: slug
+          in: query
+          required: true
+          schema:
+            type: string
+          description: The relative path/slug of the lesson doc.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LessonSummary'
+        '404':
+          description: Lesson not found
+        '500':
+          description: Generation failed
+
+  /api/features/translate:
+    get:
+      summary: Get Lesson Translation
+      description: Returns the translated markdown of a lesson.
+      parameters:
+        - name: slug
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: target_language
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [roman_urdu, urdu, hindi, spanish, french, german, arabic, chinese, japanese, russian]
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LessonTranslation'
+  
+  /api/features/quiz:
+    get:
+      summary: Get Lesson Quiz
+      description: Returns a generated 5-question MCQ quiz.
+      parameters:
+        - name: slug
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LessonQuiz'
+
+components:
+  schemas:
+    LessonSummary:
+      type: object
+      properties:
+        summary:
+          type: string
+        key_takeaways:
+          type: array
+          items:
+            type: string
+    
+    LessonTranslation:
+      type: object
+      properties:
+        translated_markdown:
+          type: string
+        language:
+          type: string
+    
+    LessonQuiz:
+      type: object
+      properties:
+        questions:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuizQuestion'
+            
+    QuizQuestion:
+      type: object
+      properties:
+        id:
+          type: integer
+        question:
+          type: string
+        options:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              text:
+                type: string
+        correct_option_id:
+          type: string
+        explanation:
+          type: string
