@@ -28,7 +28,13 @@ if (process.env.DATABASE_URL) {
 }
 
 app.use(cors({
-    origin: ["http://localhost:3000", "http://localhost:3001", "http://localhost:8000"],
+    origin: [
+        "http://localhost:3000", 
+        "http://localhost:3001", 
+        "http://localhost:8000",
+        "https://physical-ai-robotics-textbook.vercel.app",
+        "https://physical-ai-book.vercel.app"
+    ],
     credentials: true
 }));
 

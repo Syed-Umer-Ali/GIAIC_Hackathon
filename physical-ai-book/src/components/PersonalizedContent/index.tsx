@@ -31,7 +31,9 @@ export default function PersonalizedContent() {
       setContent('');
 
       try {
-        const response = await fetch('http://localhost:8000/api/personalize', {
+        // Use Env var or localhost fallback
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+        const response = await fetch(`${apiUrl}/api/personalize`, {
           method: 'POST',
           credentials: 'include',
           headers: {
