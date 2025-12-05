@@ -9,7 +9,9 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",
-        "https://learn-robotics-humanoid.vercel.app"
+        "http://localhost:3001",
+        "https://physical-ai-robotics-textbook.vercel.app", # Your specified name
+        "https://physical-ai-book.vercel.app", # Fallback name
     ],
     allow_credentials=True,
     allow_methods=["*"],
