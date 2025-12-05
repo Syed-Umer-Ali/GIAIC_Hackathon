@@ -1,7 +1,14 @@
 fastapi
 uvicorn
 google-generativeai
+openai
 qdrant-client
+asyncpg
+sqlalchemy
+python-dotenv
+pydantic-settings
+alembic
+httpx
 asyncpg
 sqlalchemy
 python-dotenv
