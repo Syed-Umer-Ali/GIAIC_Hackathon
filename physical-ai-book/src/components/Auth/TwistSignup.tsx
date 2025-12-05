@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import { authClient } from "../../lib/auth-client";
 import { useHistory } from "@docusaurus/router";
+import "../../css/auth-pages.css";
 
 export default function TwistSignup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  
+
   // Twist Fields
   const [proficiency, setProficiency] = useState("beginner");
-  const [techBackground, setTechBackground] = useState("");
-  const [preferredLanguage, setPreferredLanguage] = useState("");
+  const [techBackground, setTechBackground] = useState("student");
+  const [preferredLanguage, setPreferredLanguage] = useState("python");
 
   const history = useHistory();
 
@@ -35,55 +36,80 @@ export default function TwistSignup() {
   };
 
   return (
-    <div className="auth-form" style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-      <input 
-        placeholder="Name" 
-        onChange={(e) => setName(e.target.value)} 
-        style={{ padding: '8px' }}
+    <div className="auth-form">
+      <input
+        className="auth-input"
+        type="text"
+        placeholder="Full Name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
       />
-      <input 
-        placeholder="Email" 
-        onChange={(e) => setEmail(e.target.value)} 
-        style={{ padding: '8px' }}
+      <input
+        className="auth-input"
+        type="email"
+        placeholder="Email Address"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
       />
-      <input 
-        type="password" 
-        placeholder="Password" 
-        onChange={(e) => setPassword(e.target.value)} 
-        style={{ padding: '8px' }}
+      <input
+        className="auth-input"
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
       />
-      
-      <h3 style={{ marginTop: '10px', marginBottom: '5px' }}>Customize Your Learning</h3>
-      <select 
-        onChange={(e) => setProficiency(e.target.value)} 
+
+      <h3 className="auth-section-heading">Customize Your Learning</h3>
+
+      <select
+        className="auth-select"
+        onChange={(e) => setProficiency(e.target.value)}
         value={proficiency}
-        style={{ padding: '8px' }}
       >
-        <option value="beginner">Beginner</option>
-        <option value="learner">Learner</option>
-        <option value="pro">Pro</option>
+        <option value="beginner">🌱 Beginner - Just Starting Out</option>
+        <option value="learner">📚 Learner - Building Knowledge</option>
+        <option value="pro">🚀 Pro - Advanced Level</option>
       </select>
-      <input 
-        placeholder="Technical Background (e.g. Student)" 
-        onChange={(e) => setTechBackground(e.target.value)} 
-        style={{ padding: '8px' }}
-      />
-      <input 
-        placeholder="Preferred Language (e.g. Python)" 
-        onChange={(e) => setPreferredLanguage(e.target.value)} 
-        style={{ padding: '8px' }}
-      />
-      
-      <button 
+
+      <select
+        className="auth-select"
+        onChange={(e) => setTechBackground(e.target.value)}
+        value={techBackground}
+      >
+        <option value="">Select Technical Background</option>
+        <option value="student">🎓 Student</option>
+        <option value="professional">💼 Working Professional</option>
+        <option value="researcher">🔬 Researcher</option>
+        <option value="engineer">⚙️ Engineer</option>
+        <option value="developer">💻 Software Developer</option>
+        <option value="data_scientist">📊 Data Scientist</option>
+        <option value="hobbyist">🎨 Hobbyist</option>
+        <option value="educator">👨‍🏫 Educator</option>
+        <option value="other">🌟 Other</option>
+      </select>
+
+      <select
+        className="auth-select"
+        onChange={(e) => setPreferredLanguage(e.target.value)}
+        value={preferredLanguage}
+      >
+        <option value="">Select Preferred Language</option>
+        <option value="python">🐍 Python</option>
+        <option value="cpp">⚡ C++</option>
+        <option value="javascript">📜 JavaScript</option>
+        <option value="java">☕ Java</option>
+        <option value="csharp">🎯 C#</option>
+        <option value="rust">🦀 Rust</option>
+        <option value="go">🔷 Go</option>
+        <option value="matlab">📐 MATLAB</option>
+        <option value="r">📈 R</option>
+        <option value="julia">🔮 Julia</option>
+        <option value="other">🌐 Other</option>
+      </select>
+
+      <button
+        className="auth-submit-btn"
         onClick={handleSignup}
-        style={{ 
-            marginTop: '15px', 
-            padding: '10px', 
-            backgroundColor: 'var(--ifm-color-primary)', 
-            color: 'white', 
-            border: 'none', 
-            cursor: 'pointer' 
-        }}
       >
         Create Account
       </button>

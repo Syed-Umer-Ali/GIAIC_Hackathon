@@ -3,12 +3,13 @@ import DocItem from '@theme-original/DocItem';
 import type DocItemType from '@theme/DocItem';
 import type { WrapperProps } from '@docusaurus/types';
 import { useLocation } from '@docusaurus/router';
-import { useAuth } from '../../components/Auth/AuthProvider'; // Import Auth
+import { useAuth } from '../../components/Auth/AuthProvider';
 import SummaryTab from '../../components/LessonTabs/Summary';
 import Translator from '../../components/LessonTabs/Translator';
 import Quiz from '../../components/LessonTabs/Quiz';
 import PersonalizedContent from '../../components/PersonalizedContent';
 import styles from '../../components/LessonTabs/styles.module.css';
+import '../../css/chapter-toggle.css';
 
 type Props = WrapperProps<typeof DocItemType>;
 
@@ -28,15 +29,15 @@ export default function DocItemWrapper(props: Props): ReactNode {
 
   // View Mode State: 'original' or 'personalized'
   const [viewMode, setViewMode] = useState<'original' | 'personalized'>('original');
-  
+
   // Lesson Tools State (Summary/Quiz etc)
   const [activeTool, setActiveTool] = useState<'summary' | 'language' | 'assessment' | null>(null);
 
   const handleToolClick = (tool: 'summary' | 'language' | 'assessment') => {
     if (activeTool === tool) {
-        setActiveTool(null);
+      setActiveTool(null);
     } else {
-        setActiveTool(tool);
+      setActiveTool(tool);
     }
   };
 
@@ -75,36 +76,38 @@ export default function DocItemWrapper(props: Props): ReactNode {
 
       {/* 2. View Mode Toggles (Only if Logged In) */}
       {session?.user && (
-        <div className="margin-bottom--lg" style={{borderBottom: '1px solid var(--ifm-color-emphasis-200)', paddingBottom: '10px'}}>
-            <div className="button-group button-group--block">
-                <button 
-                    className={`button ${viewMode === 'original' ? 'button--primary' : 'button--secondary button--outline'}`}
-                    onClick={() => setViewMode('original')}
-                >
-                    📄 Original Lesson
-                </button>
-                <button 
-                    className={`button ${viewMode === 'personalized' ? 'button--primary' : 'button--secondary button--outline'}`}
-                    onClick={() => setViewMode('personalized')}
-                >
-                    ✨ Personalized for You
-                </button>
+        <div className="chapter-toggle-container">
+          <div className="chapter-toggle-group">
+            <button
+              className={`chapter-toggle-btn chapter-toggle-btn-original ${viewMode === 'original' ? 'active' : ''}`}
+              onClick={() => setViewMode('original')}
+            >
+              <span className="chapter-toggle-icon">📄</span>
+              Original Lesson
+            </button>
+            <button
+              className={`chapter-toggle-btn chapter-toggle-btn-personalized ${viewMode === 'personalized' ? 'active' : ''}`}
+              onClick={() => setViewMode('personalized')}
+            >
+              <span className="chapter-toggle-icon">✨</span>
+              Personalized for You
+            </button>
+          </div>
+          {viewMode === 'personalized' && (
+            <div className="chapter-toggle-info">
+              Adapted for <strong>{session.user.proficiency}</strong> level & <strong>{session.user.tech_background}</strong> background.
             </div>
-            {viewMode === 'personalized' && (
-                <small style={{display: 'block', marginTop: '5px', color: 'var(--ifm-color-emphasis-600)', textAlign: 'center'}}>
-                    Adapted for <strong>{session.user.proficiency}</strong> level & <strong>{session.user.tech_background}</strong> background.
-                </small>
-            )}
+          )}
         </div>
       )}
 
       {/* 3. Main Content Area */}
       {viewMode === 'original' ? (
-          // Show Standard Docusaurus Content
-          <DocItem {...props} />
+        // Show Standard Docusaurus Content
+        <DocItem {...props} />
       ) : (
-          // Show AI Personalized Content
-          <PersonalizedContent />
+        // Show AI Personalized Content
+        <PersonalizedContent />
       )}
     </>
   );

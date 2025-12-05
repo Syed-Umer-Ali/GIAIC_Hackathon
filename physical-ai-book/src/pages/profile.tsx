@@ -2,17 +2,19 @@ import React, { useState, useEffect } from "react";
 import Layout from "@theme/Layout";
 import { authClient } from "../lib/auth-client";
 import { useAuth } from "../components/Auth/AuthProvider";
-import { Redirect, useHistory } from "@docusaurus/router"; // Added useHistory
+import { Redirect, useHistory } from "@docusaurus/router";
+import "../css/profile-page.css";
+import "../css/auth-pages.css";
 
 export default function Profile() {
   const { session, loading } = useAuth();
   const [name, setName] = useState("");
   const [proficiency, setProficiency] = useState("beginner");
-  const [techBackground, setTechBackground] = useState("");
-  const [preferredLanguage, setPreferredLanguage] = useState("");
+  const [techBackground, setTechBackground] = useState("student");
+  const [preferredLanguage, setPreferredLanguage] = useState("python");
   const [isSaving, setIsSaving] = useState(false);
 
-  const history = useHistory(); // Initialize useHistory
+  const history = useHistory();
 
   useEffect(() => {
     if (session?.user) {
@@ -20,9 +22,9 @@ export default function Profile() {
       // @ts-ignore
       setProficiency(session.user.proficiency || "beginner");
       // @ts-ignore
-      setTechBackground(session.user.tech_background || "");
+      setTechBackground(session.user.tech_background || "student");
       // @ts-ignore
-      setPreferredLanguage(session.user.preferred_language || "");
+      setPreferredLanguage(session.user.preferred_language || "python");
     }
   }, [session]);
 
@@ -38,8 +40,7 @@ export default function Profile() {
       onSuccess: () => {
         alert("Profile updated!");
         setIsSaving(false);
-        // Redirect to the intro docs page after update
-        history.push("/docs/intro"); 
+        history.push("/docs/intro");
       },
       onError: (ctx) => {
         alert(ctx.error.message);
@@ -51,7 +52,6 @@ export default function Profile() {
   const handleLogout = async () => {
     await authClient.signOut({
       onSuccess: () => {
-        // Force full reload to clear client-side session state
         window.location.href = "/";
       },
       onError: (ctx) => {
@@ -65,98 +65,116 @@ export default function Profile() {
 
   return (
     <Layout title="Your Profile" description="Manage your learning preferences">
-      <div className="container margin-vert--lg">
-        <h1>Your Profile</h1>
-        <div className="row">
-          <div className="col col--6">
-            <div className="card">
-              <div className="card__header">
-                <h3>Personal Details</h3>
+      <div className="profile-page-container">
+        <div className="profile-content-wrapper">
+          <div className="profile-header">
+            <h1 className="profile-title">Your Profile</h1>
+            <p className="profile-subtitle">Manage your learning preferences and account settings</p>
+          </div>
+
+          <div className="profile-grid">
+            {/* Personal Details Card */}
+            <div className="profile-glass-card">
+              <div className="profile-card-header">
+                <h3 className="profile-card-title">👤 Personal Details</h3>
               </div>
-              <div className="card__body">
-                <div className="margin-bottom--md">
-                  <label>Name</label>
-                  <input 
-                    className="button button--block button--outline button--secondary" 
-                    style={{textAlign: 'left', cursor: 'text'}}
-                    value={name} 
-                    onChange={(e) => setName(e.target.value)} 
-                  />
-                </div>
-                <div className="margin-bottom--md">
-                    <label>Email</label>
-                    <input 
-                        className="button button--block button--outline button--secondary" 
-                        value={session.user.email} 
-                        disabled 
-                    />
-                </div>
+              <div className="profile-form-group">
+                <label className="profile-label">Name</label>
+                <input
+                  className="auth-input"
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Your full name"
+                />
+              </div>
+              <div className="profile-form-group">
+                <label className="profile-label">Email</label>
+                <input
+                  className="auth-input"
+                  type="email"
+                  value={session.user.email}
+                  disabled
+                  style={{ opacity: 0.7, cursor: 'not-allowed' }}
+                />
               </div>
             </div>
-          </div>
-          
-          <div className="col col--6">
-            <div className="card">
-              <div className="card__header">
-                <h3>Learning Preferences (The Twist)</h3>
+
+            {/* Learning Preferences Card */}
+            <div className="profile-glass-card">
+              <div className="profile-card-header">
+                <h3 className="profile-card-title">📚 Learning Preferences</h3>
               </div>
-              <div className="card__body">
-                <div className="margin-bottom--md">
-                  <label>Proficiency Level</label>
-                  <select 
-                    className="button button--block button--outline button--secondary"
-                    value={proficiency} 
-                    onChange={(e) => setProficiency(e.target.value)}
-                  >
-                    <option value="beginner">Beginner</option>
-                    <option value="learner">Learner</option>
-                    <option value="pro">Pro</option>
-                  </select>
-                </div>
-                <div className="margin-bottom--md">
-                  <label>Technical Background</label>
-                  <input 
-                    className="button button--block button--outline button--secondary"
-                    style={{textAlign: 'left', cursor: 'text'}}
-                    value={techBackground} 
-                    onChange={(e) => setTechBackground(e.target.value)} 
-                  />
-                </div>
-                <div className="margin-bottom--md">
-                  <label>Preferred Language</label>
-                  <input 
-                    className="button button--block button--outline button--secondary"
-                    style={{textAlign: 'left', cursor: 'text'}}
-                    value={preferredLanguage} 
-                    onChange={(e) => setPreferredLanguage(e.target.value)} 
-                  />
-                </div>
-              </div>
-              <div className="card__footer">
-                <button 
-                    className={`button button--primary button--block ${isSaving ? 'button--loading' : ''}`}
-                    onClick={handleUpdate}
+              <div className="profile-form-group">
+                <label className="profile-label">Proficiency Level</label>
+                <select
+                  className="auth-select"
+                  value={proficiency}
+                  onChange={(e) => setProficiency(e.target.value)}
                 >
-                    Save Changes
-                </button>
+                  <option value="beginner">🌱 Beginner - Just Starting Out</option>
+                  <option value="learner">📚 Learner - Building Knowledge</option>
+                  <option value="pro">🚀 Pro - Advanced Level</option>
+                </select>
               </div>
+              <div className="profile-form-group">
+                <label className="profile-label">Technical Background</label>
+                <select
+                  className="auth-select"
+                  value={techBackground}
+                  onChange={(e) => setTechBackground(e.target.value)}
+                >
+                  <option value="student">🎓 Student</option>
+                  <option value="professional">💼 Working Professional</option>
+                  <option value="researcher">🔬 Researcher</option>
+                  <option value="engineer">⚙️ Engineer</option>
+                  <option value="developer">💻 Software Developer</option>
+                  <option value="data_scientist">📊 Data Scientist</option>
+                  <option value="hobbyist">🎨 Hobbyist</option>
+                  <option value="educator">👨‍🏫 Educator</option>
+                  <option value="other">🌟 Other</option>
+                </select>
+              </div>
+              <div className="profile-form-group">
+                <label className="profile-label">Preferred Language</label>
+                <select
+                  className="auth-select"
+                  value={preferredLanguage}
+                  onChange={(e) => setPreferredLanguage(e.target.value)}
+                >
+                  <option value="python">🐍 Python</option>
+                  <option value="cpp">⚡ C++</option>
+                  <option value="javascript">📜 JavaScript</option>
+                  <option value="java">☕ Java</option>
+                  <option value="csharp">🎯 C#</option>
+                  <option value="rust">🦀 Rust</option>
+                  <option value="go">🔷 Go</option>
+                  <option value="matlab">📐 MATLAB</option>
+                  <option value="r">📈 R</option>
+                  <option value="julia">🔮 Julia</option>
+                  <option value="other">🌐 Other</option>
+                </select>
+              </div>
+              <button
+                className="profile-save-btn"
+                onClick={handleUpdate}
+                disabled={isSaving}
+              >
+                {isSaving ? "Saving..." : "Save Changes"}
+              </button>
             </div>
-          </div>
-        </div>
-        <div className="row margin-top--lg"> {/* New row for logout button */}
-          <div className="col col--12">
-            <div className="card">
-              <div className="card__header">
-                <h3>Account Actions</h3>
+
+            {/* Account Actions Card */}
+            <div className="profile-glass-card profile-card-full">
+              <div className="profile-card-header">
+                <h3 className="profile-card-title">⚙️ Account Actions</h3>
               </div>
-              <div className="card__body">
-                <button
-                  className="button button--danger button--block"
-                  onClick={handleLogout}
-                >
-                  Logout
-                </button>
-              </div>
+              <button
+                className="profile-logout-btn"
+                onClick={handleLogout}
+              >
+                🚪 Logout
+              </button>
             </div>
           </div>
         </div>

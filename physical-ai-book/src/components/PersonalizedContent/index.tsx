@@ -41,8 +41,8 @@ export default function PersonalizedContent() {
         });
 
         if (!response.ok) {
-            if (response.status === 401) throw new Error("Please login to see personalized content");
-            throw new Error('Failed to fetch personalized content');
+          if (response.status === 401) throw new Error("Please login to see personalized content");
+          throw new Error('Failed to fetch personalized content');
         }
 
         if (!response.body) throw new Error('ReadableStream not supported');
@@ -70,33 +70,33 @@ export default function PersonalizedContent() {
 
   if (error) return (
     <div className="alert alert--danger margin-top--md">
-        <strong>Error:</strong> {error}
+      <strong>Error:</strong> {error}
     </div>
   );
 
   return (
     <div className="personalized-view margin-top--md">
-        {isLoading && content.length === 0 && (
-            <div className="card shadow--tl" style={{textAlign: 'center', padding: '3rem'}}>
-                <div className="spinner-border text-primary" role="status" style={{marginBottom: '1rem', fontSize: '2rem'}}>
-                    🤖
-                </div>
-                <h3>Curating Your Experience...</h3>
-                <p>
-                    Adapting content for a <strong>{session?.user.tech_background}</strong> background 
-                    using <strong>{session?.user.preferred_language}</strong> examples.
-                </p>
-                <div className="progress margin-top--md" style={{height: '4px'}}>
-                    <div className="progress-bar progress-bar-striped progress-bar-animated" style={{width: '100%'}}></div>
-                </div>
-            </div>
-        )}
+      {isLoading && content.length === 0 && (
+        <div className="card shadow--tl" style={{ textAlign: 'center', padding: '3rem' }}>
+          <div className="spinner-border text-primary" role="status" style={{ marginBottom: '1rem', fontSize: '2rem' }}>
+            🤖
+          </div>
+          <h3>Creating a Personalized Content For You...</h3>
+          <p>
+            Adapting content for a <strong>{session?.user.tech_background}</strong> background
+            using <strong>{session?.user.preferred_language}</strong> examples.
+          </p>
+          <div className="progress margin-top--md" style={{ height: '4px' }}>
+            <div className="progress-bar progress-bar-striped progress-bar-animated" style={{ width: '100%' }}></div>
+          </div>
+        </div>
+      )}
 
-        {(content.length > 0) && (
-            <div className="prose dark:prose-invert max-w-none animate-fade-in">
-                <ReactMarkdown>{content}</ReactMarkdown>
-            </div>
-        )}
+      {(content.length > 0) && (
+        <div className="prose dark:prose-invert max-w-none animate-fade-in">
+          <ReactMarkdown>{content}</ReactMarkdown>
+        </div>
+      )}
     </div>
   );
 }

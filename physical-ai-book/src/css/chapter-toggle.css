@@ -1,0 +1,192 @@
+/**
+ * Chapter Toggle Buttons - Original vs Personalized
+ * Modern glassmorphism design matching website theme
+ */
+
+/* Toggle Container */
+.chapter-toggle-container {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+}
+
+/* Button Group */
+.chapter-toggle-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 0.75rem;
+}
+
+/* Base Toggle Button */
+.chapter-toggle-btn {
+    position: relative;
+    flex: 1;
+    max-width: 280px;
+    padding: 1rem 1.5rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid transparent;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+/* Original Button - Default State */
+.chapter-toggle-btn-original {
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.chapter-toggle-btn-original:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+}
+
+/* Original Button - Active State */
+.chapter-toggle-btn-original.active {
+    color: #000;
+    background: linear-gradient(135deg, #fff 0%, #e0e0e0 100%);
+    border-color: #fff;
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+}
+
+/* Personalized Button - Default State */
+.chapter-toggle-btn-personalized {
+    color: rgba(0, 243, 255, 0.8);
+    background: rgba(0, 243, 255, 0.05);
+    border-color: rgba(0, 243, 255, 0.3);
+}
+
+.chapter-toggle-btn-personalized:hover {
+    background: rgba(0, 243, 255, 0.1);
+    border-color: rgba(0, 243, 255, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 243, 255, 0.2);
+}
+
+/* Personalized Button - Active State */
+.chapter-toggle-btn-personalized.active {
+    color: #000;
+    background: linear-gradient(135deg, #00f3ff 0%, #00dbe6 100%);
+    border-color: #00f3ff;
+    box-shadow: 0 6px 20px rgba(0, 243, 255, 0.4);
+    animation: glow-pulse-cyan 2s ease-in-out infinite;
+}
+
+/* Glow Animation for Active Personalized Button */
+@keyframes glow-pulse-cyan {
+
+    0%,
+    100% {
+        box-shadow: 0 6px 20px rgba(0, 243, 255, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 8px 30px rgba(0, 243, 255, 0.6);
+    }
+}
+
+/* Button Icon */
+.chapter-toggle-icon {
+    font-size: 1.2rem;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Info Text Below Buttons */
+.chapter-toggle-info {
+    text-align: center;
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.chapter-toggle-info strong {
+    color: #00f3ff;
+    font-weight: 600;
+}
+
+/* Light Mode Adjustments */
+[data-theme='light'] .chapter-toggle-container {
+    border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='light'] .chapter-toggle-btn-original {
+    color: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.15);
+}
+
+[data-theme='light'] .chapter-toggle-btn-original:hover {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='light'] .chapter-toggle-btn-original.active {
+    color: #fff;
+    background: linear-gradient(135deg, #1a1a1a 0%, #333 100%);
+    border-color: #1a1a1a;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme='light'] .chapter-toggle-btn-personalized {
+    color: #0284c7;
+    background: rgba(2, 132, 199, 0.05);
+    border-color: rgba(2, 132, 199, 0.3);
+}
+
+[data-theme='light'] .chapter-toggle-btn-personalized:hover {
+    background: rgba(2, 132, 199, 0.1);
+    border-color: rgba(2, 132, 199, 0.5);
+    box-shadow: 0 4px 15px rgba(2, 132, 199, 0.2);
+}
+
+[data-theme='light'] .chapter-toggle-btn-personalized.active {
+    color: #fff;
+    background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+    border-color: #0284c7;
+    box-shadow: 0 6px 20px rgba(2, 132, 199, 0.4);
+}
+
+[data-theme='light'] .chapter-toggle-info {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+[data-theme='light'] .chapter-toggle-info strong {
+    color: #0284c7;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .chapter-toggle-group {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .chapter-toggle-btn {
+        max-width: 100%;
+        padding: 0.9rem 1.25rem;
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .chapter-toggle-btn {
+        padding: 0.8rem 1rem;
+        font-size: 0.95rem;
+    }
+
+    .chapter-toggle-icon {
+        font-size: 1.1rem;
+    }
+}

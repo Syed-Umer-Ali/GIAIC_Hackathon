@@ -1,0 +1,187 @@
+/**
+ * Minimalist Auth Buttons with Gradient Hover Effects
+ * Light Mode: Black/White buttons
+ * Dark Mode: White/Black buttons
+ * Hover: Gradient colors (Neon Blue #00f3ff & Orange #ff9900)
+ */
+
+.auth-buttons-container {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+/* Login Button - Default Black/White, Hover Neon Blue Gradient */
+.auth-btn-login {
+    position: relative;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    background: #000;
+    border: 2px solid #000;
+    border-radius: 50px;
+    text-decoration: none;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+/* Dark mode - Login button */
+[data-theme='dark'] .auth-btn-login {
+    color: #000;
+    background: #fff;
+    border-color: #fff;
+}
+
+/* Gradient overlay for hover effect */
+.auth-btn-login::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #00f3ff 0%, #00dbe6 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+}
+
+.auth-btn-login:hover {
+    transform: translateY(-2px);
+    border-color: #00f3ff;
+    color: #000;
+    text-decoration: none;
+    box-shadow: 0 8px 25px rgba(0, 243, 255, 0.4);
+}
+
+.auth-btn-login:hover::before {
+    opacity: 1;
+}
+
+.auth-btn-login:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(0, 243, 255, 0.3);
+}
+
+/* Sign Up Button - Default White/Black, Hover Orange Gradient */
+.auth-btn-signup {
+    position: relative;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #000;
+    background: #fff;
+    border: 2px solid #000;
+    border-radius: 50px;
+    text-decoration: none;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+/* Dark mode - Sign Up button */
+[data-theme='dark'] .auth-btn-signup {
+    color: #fff;
+    background: #000;
+    border-color: #fff;
+}
+
+/* Gradient overlay for hover effect */
+.auth-btn-signup::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #ff9900 0%, #ff7700 100%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+}
+
+.auth-btn-signup:hover {
+    transform: translateY(-2px);
+    border-color: #ff9900;
+    color: #fff;
+    text-decoration: none;
+    box-shadow: 0 8px 25px rgba(255, 153, 0, 0.4);
+}
+
+.auth-btn-signup:hover::before {
+    opacity: 1;
+}
+
+.auth-btn-signup:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(255, 153, 0, 0.3);
+}
+
+/* Smooth glow animation on hover */
+@keyframes glow-pulse-blue {
+
+    0%,
+    100% {
+        box-shadow: 0 8px 25px rgba(0, 243, 255, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 10px 35px rgba(0, 243, 255, 0.6);
+    }
+}
+
+@keyframes glow-pulse-orange {
+
+    0%,
+    100% {
+        box-shadow: 0 8px 25px rgba(255, 153, 0, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 10px 35px rgba(255, 153, 0, 0.6);
+    }
+}
+
+.auth-btn-login:hover {
+    animation: glow-pulse-blue 2s ease-in-out infinite;
+}
+
+.auth-btn-signup:hover {
+    animation: glow-pulse-orange 2s ease-in-out infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .auth-buttons-container {
+        gap: 0.5rem;
+    }
+
+    .auth-btn-login,
+    .auth-btn-signup {
+        padding: 0.6rem 1.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .auth-buttons-container {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .auth-btn-login,
+    .auth-btn-signup {
+        width: 100%;
+        max-width: 200px;
+    }
+}
