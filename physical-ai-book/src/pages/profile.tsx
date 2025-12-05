@@ -49,15 +49,22 @@ export default function Profile() {
     });
   };
 
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+
   const handleLogout = async () => {
-    await authClient.signOut({
-      onSuccess: () => {
+    setIsLoggingOut(true);
+    try {
+        // Race condition: Wait max 2 seconds for server response
+        await Promise.race([
+            authClient.signOut(),
+            new Promise((resolve) => setTimeout(resolve, 2000))
+        ]);
+    } catch (e) {
+        console.error("Logout error:", e);
+    } finally {
+        // Always redirect, even if server is slow/down
         window.location.href = "/";
-      },
-      onError: (ctx) => {
-        alert(`Logout failed: ${ctx.error.message}`);
-      }
-    });
+    }
   };
 
   if (loading) return <Layout>Loading...</Layout>;
@@ -66,6 +73,16 @@ export default function Profile() {
   return (
     <Layout title="Your Profile" description="Manage your learning preferences">
       <div className="profile-page-container">
+        {isLoggingOut && (
+            <div style={{
+                position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+                backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 9999,
+                display: 'flex', justifyContent: 'center', alignItems: 'center',
+                color: 'white', fontSize: '1.5rem'
+            }}>
+                Logging out...
+            </div>
+        )}
         <div className="profile-content-wrapper">
           <div className="profile-header">
             <h1 className="profile-title">Your Profile</h1>

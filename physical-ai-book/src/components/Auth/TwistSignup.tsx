@@ -26,8 +26,8 @@ export default function TwistSignup() {
       preferred_language: preferredLanguage
     }, {
       onSuccess: () => {
-        alert("Signup successful! Please login.");
-        history.push("/login");
+        // Auto-login behavior: Force reload to docs to pick up the new session cookie
+        window.location.href = "/docs/intro";
       },
       onError: (ctx) => {
         alert(ctx.error.message);
