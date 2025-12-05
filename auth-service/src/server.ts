@@ -61,7 +61,7 @@ app.all(/.*/, (req, res, next) => {
             url: req.url,
             originalUrl: req.originalUrl
         });
-        return toNodeHandler(auth)(req, res, next);
+        return toNodeHandler(auth)(req, res);
     }
     next();
 });
