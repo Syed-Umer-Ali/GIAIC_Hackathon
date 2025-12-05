@@ -1,0 +1,52 @@
+openapi: 3.0.0
+info:
+  title: Personalization Engine API
+  version: 1.0.0
+  description: API for generating context-aware personalized content.
+servers:
+  - url: http://localhost:8000
+    description: Local Development
+
+paths:
+  /api/personalize:
+    post:
+      summary: Generate Personalized Content
+      description: Adapts the provided content based on the authenticated user's profile.
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - content
+              properties:
+                content:
+                  type: string
+                  description: The original markdown/text content of the chapter.
+                context_hint:
+                  type: string
+                  description: Optional hint about the chapter topic (e.g., "Chapter 1: Intro").
+      responses:
+        '200':
+          description: Successful Stream
+          content:
+            text/event-stream:
+              schema:
+                type: string
+                description: Stream of personalized text chunks.
+        '401':
+          description: Unauthorized (Not logged in or invalid session)
+        '400':
+          description: Bad Request (Missing content or profile incomplete)
+        '500':
+          description: AI Generation Error
+
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: better-auth.session_token

@@ -1,8 +1,10 @@
 <!--
 Sync Impact Report:
-- Version change: 0.2.0 -> 0.3.0
+- Version change: 0.3.0 -> 0.4.0
 - Modified principles:
-  - V. User-Centric Enhancements (Bonus) -> V. Interactive & Accessible Learning
+  - VI. Robust Technology Stack -> Updated to include Better Auth.
+- Added principles:
+  - VII. Personalized & Adaptive Learning -> Added to mandate the "twist" feature.
 - Added sections: None
 - Removed sections: None
 - Templates requiring updates:
@@ -36,11 +38,15 @@ The learning experience MUST be enhanced with interactive tools including AI-gen
 Rationale: To lower language barriers and enforce active recall, ensuring the content is accessible and engaging for a diverse, global student base, particularly catering to the local context via Roman Urdu.
 
 ### VI. Robust Technology Stack
-The integrated RAG chatbot and interactive features MUST utilize OpenAI Agents/ChatKit SDKs, FastAPI, Neon Serverless Postgres, and Qdrant Cloud Free Tier.
-Rationale: To ensure the chatbot is built on a modern, scalable, and efficient technology stack, leveraging best-in-class tools for AI integration and data management.
+The integrated RAG chatbot and interactive features MUST utilize OpenAI Agents/ChatKit SDKs, FastAPI, Neon Serverless Postgres, Qdrant Cloud Free Tier, and Better Auth.
+Rationale: To ensure the chatbot and auth system are built on a modern, scalable, and efficient technology stack, leveraging best-in-class tools for AI integration, secure user management, and data handling.
+
+### VII. Personalized & Adaptive Learning
+The platform MUST collect user context (proficiency, background, preferred language) during onboarding and utilize AI to adapt content delivery.
+Rationale: To tailor the educational experience to individual learner needs, ensuring that content is presented at the appropriate complexity level and with relevant analogies, thereby maximizing learning efficacy.
 
 ## Project Purpose
-The primary purpose of this project is to create a comprehensive, AI-native textbook for teaching a course in Physical AI & Humanoid Robotics. This textbook, built with Docusaurus and hosted on GitHub Pages, will be augmented by an interactive RAG chatbot to enhance the learning experience. The project also serves as a hackathon deliverable, demonstrating proficiency in AI/Spec-Driven Development and cutting-edge AI integration.
+The primary purpose of this project is to create a comprehensive, AI-native textbook for teaching a course in Physical AI & Humanoid Robotics. This textbook, built with Docusaurus and hosted on GitHub Pages, will be augmented by an interactive RAG chatbot and an AI-driven personalization engine to enhance the learning experience. The project also serves as a hackathon deliverable, demonstrating proficiency in AI/Spec-Driven Development and cutting-edge AI integration.
 
 ## Hackathon Requirements & Deliverables
 The project MUST adhere to the core deliverables and aim for bonus points as outlined in the hackathon brief. This includes but is not limited to:
@@ -55,4 +61,4 @@ This Constitution outlines the foundational principles and guidelines for the "P
 **Versioning Policy:** Semantic versioning will be applied to Constitution updates. MAJOR for backward incompatible changes, MINOR for significant additions, PATCH for minor clarifications.
 **Compliance Review:** All major project milestones and deliverables MUST undergo a review to ensure compliance with the principles outlined herein.
 
-**Version**: 0.3.0 | **Ratified**: 2025-11-29 | **Last Amended**: 2025-12-01
+**Version**: 0.4.0 | **Ratified**: 2025-11-29 | **Last Amended**: 2025-12-02

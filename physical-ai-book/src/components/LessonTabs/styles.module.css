@@ -295,6 +295,7 @@
     box-shadow: 0 0 20px rgba(255, 94, 98, 0.6);
 }
 
+
 /* Active State - Full Opacity & Glow */
 .activeTab {
     opacity: 1;

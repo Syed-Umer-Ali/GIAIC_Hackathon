@@ -6,6 +6,7 @@ import { useLocation } from '@docusaurus/router';
 import SummaryTab from '../../components/LessonTabs/Summary';
 import Translator from '../../components/LessonTabs/Translator';
 import Quiz from '../../components/LessonTabs/Quiz';
+import PersonalizedContent from '../../components/PersonalizedContent'; // Import here
 import styles from '../../components/LessonTabs/styles.module.css';
 
 type Props = WrapperProps<typeof DocItemType>;
@@ -38,6 +39,11 @@ export default function DocItemWrapper(props: Props): ReactNode {
 
   return (
     <>
+      {/* Personalized Content Injection - Only shows if user is logged in */}
+      <div className="margin-bottom--md">
+          <PersonalizedContent />
+      </div>
+
       {/* Lesson Tabs UI - Injected above the main DocItem */}
       <div className="margin-bottom--md">
         <div className={styles.tabsContainer}>
