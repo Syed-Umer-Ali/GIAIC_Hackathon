@@ -3,87 +3,109 @@ import DocItem from '@theme-original/DocItem';
 import type DocItemType from '@theme/DocItem';
 import type { WrapperProps } from '@docusaurus/types';
 import { useLocation } from '@docusaurus/router';
+import { useAuth } from '../../components/Auth/AuthProvider'; // Import Auth
 import SummaryTab from '../../components/LessonTabs/Summary';
 import Translator from '../../components/LessonTabs/Translator';
 import Quiz from '../../components/LessonTabs/Quiz';
-import PersonalizedContent from '../../components/PersonalizedContent'; // Import here
+import PersonalizedContent from '../../components/PersonalizedContent';
 import styles from '../../components/LessonTabs/styles.module.css';
 
 type Props = WrapperProps<typeof DocItemType>;
 
 // Extract clean slug from location path
-// Docusaurus paths: /docs/01-ros2/fundamentals -> 01-ros2/fundamentals
 const getSlugFromPath = (path: string): string => {
   const docsPrefix = '/docs/';
   if (path.startsWith(docsPrefix)) {
     return path.substring(docsPrefix.length);
   }
-  // Fallback for root docs or unexpected paths
   return path.replace(/^\/+/, '');
 };
 
 export default function DocItemWrapper(props: Props): ReactNode {
   const location = useLocation();
+  const { session } = useAuth();
   const slug = getSlugFromPath(location.pathname);
 
-  // Simple Tab State
-  const [activeTab, setActiveTab] = useState<'summary' | 'language' | 'assessment' | null>(null);
+  // View Mode State: 'original' or 'personalized'
+  const [viewMode, setViewMode] = useState<'original' | 'personalized'>('original');
+  
+  // Lesson Tools State (Summary/Quiz etc)
+  const [activeTool, setActiveTool] = useState<'summary' | 'language' | 'assessment' | null>(null);
 
-  const handleTabClick = (tab: 'summary' | 'language' | 'assessment') => {
-    if (activeTab === tab) {
-      setActiveTab(null); // Toggle off
+  const handleToolClick = (tool: 'summary' | 'language' | 'assessment') => {
+    if (activeTool === tool) {
+        setActiveTool(null);
     } else {
-      setActiveTab(tab);
+        setActiveTool(tool);
     }
   };
 
   return (
     <>
-      {/* Personalized Content Injection - Only shows if user is logged in */}
-      <div className="margin-bottom--md">
-          <PersonalizedContent />
-      </div>
-
-      {/* Lesson Tabs UI - Injected above the main DocItem */}
+      {/* 1. Top Level Tools (Summary, Quiz, Translate) - Always visible */}
       <div className="margin-bottom--md">
         <div className={styles.tabsContainer}>
           <button
-            className={`${styles.tabButton} ${styles.summaryTab} ${activeTab === 'summary' ? styles.activeTab : ''}`}
-            onClick={() => handleTabClick('summary')}
+            className={`${styles.tabButton} ${styles.summaryTab} ${activeTool === 'summary' ? styles.activeTab : ''}`}
+            onClick={() => handleToolClick('summary')}
           >
             <span className={styles.emojiIcon}>📝</span> Summary
           </button>
 
           <button
-            className={`${styles.tabButton} ${styles.languageTab} ${activeTab === 'language' ? styles.activeTab : ''}`}
-            onClick={() => handleTabClick('language')}
+            className={`${styles.tabButton} ${styles.languageTab} ${activeTool === 'language' ? styles.activeTab : ''}`}
+            onClick={() => handleToolClick('language')}
           >
             <span className={styles.emojiIcon}>🌐</span> Language
           </button>
 
           <button
-            className={`${styles.tabButton} ${styles.assessmentTab} ${activeTab === 'assessment' ? styles.activeTab : ''}`}
-            onClick={() => handleTabClick('assessment')}
+            className={`${styles.tabButton} ${styles.assessmentTab} ${activeTool === 'assessment' ? styles.activeTab : ''}`}
+            onClick={() => handleToolClick('assessment')}
           >
             <span className={styles.emojiIcon}>✅</span> Assessment
           </button>
         </div>
 
-        {/* Tab Content Area */}
-        {activeTab === 'summary' && (
-          <SummaryTab slug={slug} />
-        )}
-
-        {activeTab === 'language' && (
-          <Translator slug={slug} />
-        )}
-
-        {activeTab === 'assessment' && (
-          <Quiz slug={slug} />
-        )}
+        {/* Tool Content Area */}
+        {activeTool === 'summary' && <SummaryTab slug={slug} />}
+        {activeTool === 'language' && <Translator slug={slug} />}
+        {activeTool === 'assessment' && <Quiz slug={slug} />}
       </div>
 
-      <DocItem {...props} />
+      {/* 2. View Mode Toggles (Only if Logged In) */}
+      {session?.user && (
+        <div className="margin-bottom--lg" style={{borderBottom: '1px solid var(--ifm-color-emphasis-200)', paddingBottom: '10px'}}>
+            <div className="button-group button-group--block">
+                <button 
+                    className={`button ${viewMode === 'original' ? 'button--primary' : 'button--secondary button--outline'}`}
+                    onClick={() => setViewMode('original')}
+                >
+                    📄 Original Lesson
+                </button>
+                <button 
+                    className={`button ${viewMode === 'personalized' ? 'button--primary' : 'button--secondary button--outline'}`}
+                    onClick={() => setViewMode('personalized')}
+                >
+                    ✨ Personalized for You
+                </button>
+            </div>
+            {viewMode === 'personalized' && (
+                <small style={{display: 'block', marginTop: '5px', color: 'var(--ifm-color-emphasis-600)', textAlign: 'center'}}>
+                    Adapted for <strong>{session.user.proficiency}</strong> level & <strong>{session.user.tech_background}</strong> background.
+                </small>
+            )}
+        </div>
+      )}
+
+      {/* 3. Main Content Area */}
+      {viewMode === 'original' ? (
+          // Show Standard Docusaurus Content
+          <DocItem {...props} />
+      ) : (
+          // Show AI Personalized Content
+          <PersonalizedContent />
+      )}
     </>
   );
 }
