@@ -17,12 +17,17 @@ async def get_current_user(request: Request, db: AsyncSession = Depends(get_db))
     # Debug: Log all cookies received
     print(f"DEBUG: Cookies received: {request.cookies.keys()}")
     
-    # Better Auth sets a cookie, usually named "better-auth.session_token"
-    # Also check for generic "session_token" just in case
     token = request.cookies.get("better-auth.session_token") or request.cookies.get("session_token")
     
+    # Fallback: Check Authorization Header (Bearer token)
     if not token:
-        print("DEBUG: No token found in cookies")
+        auth_header = request.headers.get("Authorization")
+        if auth_header and auth_header.startswith("Bearer "):
+            token = auth_header.split(" ")[1]
+            print("DEBUG: Token found in Authorization header")
+
+    if not token:
+        print("DEBUG: No token found in cookies or headers")
         raise HTTPException(status_code=401, detail="Not authenticated - No token")
 
     # FIX: Decode the token (it might be URL encoded like %2B instead of +)
@@ -56,3 +61,9 @@ async def get_current_user(request: Request, db: AsyncSession = Depends(get_db))
         raise HTTPException(status_code=401, detail="User not found")
         
     return user
+
+async def get_optional_user(request: Request, db: AsyncSession = Depends(get_db)):
+    try:
+        return await get_current_user(request, db)
+    except HTTPException:
+        return None
