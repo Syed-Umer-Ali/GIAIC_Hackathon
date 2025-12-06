@@ -12,6 +12,7 @@ app.add_middleware(
         "http://localhost:3001",
         "https://physical-ai-robotics-textbook.vercel.app", # Your specified name
         "https://physical-ai-book.vercel.app", # Fallback name
+        "https://physical-ai-book-black.vercel.app", # Latest Vercel Deployment
     ],
     allow_credentials=True,
     allow_methods=["*"],
