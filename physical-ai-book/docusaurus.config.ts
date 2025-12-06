@@ -11,6 +11,7 @@ const config: Config = {
 
   customFields: {
     apiUrl: process.env.API_URL || 'http://localhost:8000',
+    authUrl: process.env.AUTH_URL || 'http://localhost:3001',
   },
 
   presets: [
