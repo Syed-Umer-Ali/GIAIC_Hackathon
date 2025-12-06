@@ -8,7 +8,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
 DOCS_DIR = BASE_DIR / "physical-ai-book" / "docs"
 
-GITHUB_REPO = "Syed-Umer-Ali/hackathon-book"
+GITHUB_REPO = "Syed-Umer-Ali/GIAIC_Hackathon"
 GITHUB_BRANCH = "main" # Default to main, can be made env var
 TREE_CACHE = None
 
@@ -50,30 +50,26 @@ def find_file_fuzzy(base_path: Path, parts: list[str]) -> Path | None:
 
 def match_slug_to_path(slug_parts: list[str], repo_path: str) -> bool:
     """
-    Matches a slug (list of parts) to a repository path string.
+    Matches a slug (list of parts) to a repository path string by normalizing
+    both and comparing the result.
     """
-    repo_parts = repo_path.split("/")
+    # Reconstruct the original slug string from its parts.
+    slug_str = "/".join(slug_parts)
     
-    # Filter out empty parts just in case
-    repo_parts = [p for p in repo_parts if p]
+    # Normalize the repository path:
+    # 1. Remove the '.md' file extension.
+    repo_path_no_ext = repo_path.replace(".md", "")
+    # 2. Split into parts.
+    repo_path_parts = repo_path_no_ext.split("/")
+    # 3. Remove numeric prefixes (e.g., '01-') from each part.
+    normalized_repo_parts = [re.sub(r'^\d+[-_.]', '', p) for p in repo_path_parts]
+    # 4. Join the normalized parts back into a string.
+    normalized_repo_path = "/".join(normalized_repo_parts)
     
-    if len(slug_parts) != len(repo_parts):
-        return False
-        
-    for i, part in enumerate(slug_parts):
-        repo_part = repo_parts[i]
-        # Remove extension if last part
-        if i == len(slug_parts) - 1:
-            repo_part = repo_part.replace(".md", "")
-            
-        # Normalize: remove leading digits and separators
-        norm_slug = re.sub(r'^\d+[-_.]', '', part)
-        norm_repo = re.sub(r'^\d+[-_.]', '', repo_part)
-        
-        if norm_slug.lower() != norm_repo.lower():
-            return False
-            
-    return True
+    # Compare the reconstructed slug string with the fully normalized repo path.
+    # This correctly matches 'digital-twin-simulation/gazebo-setup' with
+    # '02-digital-twin-simulation/1-gazebo-setup.md' after normalization.
+    return slug_str.lower() == normalized_repo_path.lower()
 
 async def fetch_from_github(slug: str) -> str:
     """
@@ -107,11 +103,15 @@ async def fetch_from_github(slug: str) -> str:
             # Remove prefix to get relative path inside docs
             rel_path = path.replace("physical-ai-book/docs/", "")
             
+            print(f"DEBUG: Comparing slug='{slug}' with rel_path='{rel_path}'") # DEBUG PRINT
+            
             if match_slug_to_path(slug_parts, rel_path):
                 target_path = path
+                print(f"DEBUG: Match FOUND! slug='{slug}', target_path='{target_path}'") # DEBUG PRINT
                 break
         
         if not target_path:
+             print(f"ERROR: No match found for slug='{slug}' in GitHub tree.") # DEBUG PRINT
              raise FileNotFoundError(f"Lesson content not found in GitHub for slug: {slug}")
 
         # 3. Fetch Content
