@@ -1,31 +1,14 @@
 import express from "express";
 import { toNodeHandler } from "better-auth/node";
-import { auth } from "./auth";
+// @ts-ignore - Add .js extension for ESM compatibility
+import { auth } from "./auth.js";
 import dotenv from "dotenv";
 import cors from "cors";
-import { Pool } from "pg";
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-
-// Check DB Connection
-if (process.env.DATABASE_URL) {
-    const pool = new Pool({
-        connectionString: process.env.DATABASE_URL,
-    });
-
-    pool.connect().then(client => {
-        console.log("✅ Database connected successfully");
-        client.release();
-        pool.end();
-    }).catch(err => {
-        console.error("❌ Database connection failed:", err);
-    });
-} else {
-    console.error("❌ DATABASE_URL is missing in environment variables");
-}
 
 app.use(cors({
     origin: [

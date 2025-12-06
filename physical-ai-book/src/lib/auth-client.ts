@@ -1,17 +1,8 @@
 import { createAuthClient } from "better-auth/react";
+import siteConfig from '@generated/docusaurus.config';
 
-// Safe environment variable access for Docusaurus/Client-side
 const getAuthUrl = () => {
-  try {
-    // @ts-ignore
-    if (typeof process !== "undefined" && process.env?.NEXT_PUBLIC_AUTH_URL) {
-      // @ts-ignore
-      return process.env.NEXT_PUBLIC_AUTH_URL;
-    }
-  } catch (e) {
-    // Ignore reference errors
-  }
-  return "http://localhost:3001";
+  return (siteConfig.customFields?.authUrl as string) || "http://localhost:3001";
 };
 
 export const authClient = createAuthClient({

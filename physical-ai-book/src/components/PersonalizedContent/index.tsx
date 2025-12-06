@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useAuth } from '../Auth/AuthProvider';
 import { useLocation } from '@docusaurus/router';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 // Helper to extract clean slug
 const getSlugFromPath = (path: string): string => {
@@ -13,6 +14,7 @@ const getSlugFromPath = (path: string): string => {
 };
 
 export default function PersonalizedContent() {
+  const { siteConfig } = useDocusaurusContext();
   const { session } = useAuth();
   const location = useLocation();
   const slug = getSlugFromPath(location.pathname);
@@ -32,7 +34,7 @@ export default function PersonalizedContent() {
 
       try {
         // Use Env var or localhost fallback
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+        const apiUrl = (siteConfig.customFields?.apiUrl as string) || 'http://localhost:8000';
         const response = await fetch(`${apiUrl}/api/personalize`, {
           method: 'POST',
           credentials: 'include',
