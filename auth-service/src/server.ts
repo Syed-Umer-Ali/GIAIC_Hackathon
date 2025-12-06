@@ -16,7 +16,8 @@ app.use(cors({
         "http://localhost:3001", 
         "http://localhost:8000",
         "https://physical-ai-robotics-textbook.vercel.app",
-        "https://physical-ai-book.vercel.app"
+        "https://physical-ai-book.vercel.app",
+        "https://physical-ai-book-black.vercel.app"
     ],
     credentials: true
 }));
