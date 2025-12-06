@@ -41,7 +41,11 @@ export default function PersonalizedContent() {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ slug: slug }),
+          body: JSON.stringify({ 
+            slug: slug,
+            tech_background: session?.user?.tech_background,
+            preferred_language: session?.user?.preferred_language
+          }),
         });
 
         if (!response.ok) {
