@@ -39,6 +39,7 @@ export const auth = betterAuth({
     "http://localhost:3000", 
     "http://localhost:3001",
     "https://physical-ai-robotics-textbook.vercel.app",
-    "https://physical-ai-book.vercel.app"
+    "https://physical-ai-book.vercel.app",
+    "https://physical-ai-book-black.vercel.app"
   ], 
 });
