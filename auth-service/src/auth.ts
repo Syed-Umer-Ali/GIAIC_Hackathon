@@ -41,5 +41,11 @@ export const auth = betterAuth({
     "https://physical-ai-robotics-textbook.vercel.app",
     "https://physical-ai-book.vercel.app",
     "https://physical-ai-book-black.vercel.app"
-  ], 
+  ],
+  advanced: {
+    defaultCookieAttributes: {
+      sameSite: "none",
+      secure: true,
+    },
+  },
 });
