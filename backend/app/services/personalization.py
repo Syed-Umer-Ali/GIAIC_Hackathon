@@ -33,7 +33,7 @@ async def generate_personalized_content(original_content: str, user: User):
     {original_content}
     """
     
-    model = genai.GenerativeModel('gemini-2.0-flash')
+    model = genai.GenerativeModel('gemini-2.5-flash')
     
     # Gemini streaming
     response = model.generate_content(prompt, stream=True)
